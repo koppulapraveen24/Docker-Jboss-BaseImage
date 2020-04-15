@@ -1,4 +1,5 @@
 # Use latest jboss/base-jdk:11 image as the base
+ARG BASE_IMAGE_NAME
 FROM ${BASE_IMAGE_NAME}
 
 # Set the WILDFLY_VERSION env variable

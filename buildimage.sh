@@ -1,5 +1,5 @@
 #!/bin/bash
-# This is an Sample project to build BaseImage needed for CICD of 
+# This is an Sample project to build BaseImage needed for CICD of
 # JAVA Web Application used for Wezva Technologies
 # Author: Adam M       # Email: scmlearningcentre@gmail.com
 # Phone: 9739110917    # www.wezva.com
@@ -14,8 +14,8 @@ build_image()
 {
     log "INFO: Starting docker build of $1"
 
-    /bin/docker build --build-arg BASE_IMAGE_NAME=${BASE_IMAGE} -t Build_Img . --no-cache --force-rm
-    if [[ $? -ne "0" ]]; then
+    /usr/bin/docker build --build-arg BASE_IMAGE_NAME=${BASE_IMAGE} -t ${Build_Img} . --no-cache --force-rm
+    if [ $? -ne "0" ]; then
       log "ERROR: Docker build failed"
       exit
     fi
@@ -24,20 +24,20 @@ build_image()
 push_image()
 {
     log "INFO: Login to the docker registry"
-	/bin/docker login -u adamtravis -p $paswd
-	
-	if [[ $? -ne "0" ]]; then
+        /usr/bin/docker login -u adamtravis -p $paswd
+
+        if [ $? -ne "0" ]; then
         log "ERROR: Docker registry login failed"
         exit 1
     else
         log "INFO: Docker registry login [[ success ]]  "
     fi
-	
-	log "INFO: Starting to push image to the repository"
-    /bin/docker tag ${Build_Img} adamtravis/${Build_Img}
-    /bin/docker push adamtravis/${Build_Img}
 
-    if [[ $? -ne "0" ]]; then
+        log "INFO: Starting to push image to the repository"
+    /usr/bin/docker tag ${Build_Img} adamtravis/${Build_Img}
+    /usr/bin/docker push adamtravis/${Build_Img}
+
+    if [ $? -ne "0" ]; then
         log "ERROR: Docker Push command failed"
         exit 1
     else
@@ -56,3 +56,5 @@ else
   Build_Img="wildfly"
 fi
 
+build_image
+push_image
