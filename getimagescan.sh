@@ -7,13 +7,13 @@ SCAN_STATUS=1
 # Check if scan is complete
 until [ "$SCAN_STATUS" -eq "0" ];
 do  
-  SCAN_STATUS=$(/usr/bin/aws ecr wait image-scan-complete --repository-name $ECR_REPO --image-id imageTag=$IMAGE_TAG; echo $?)
+  SCAN_STATUS=$(aws ecr wait image-scan-complete --repository-name $ECR_REPO --image-id imageTag=$IMAGE_TAG; echo $?)
   echo "Waiting for scan to complete"
   sleep 5
 done
 
 # Get the Scan results
-SCAN_FINDINGS=$(/usr/bin/aws ecr describe-image-scan-findings --repository-name $ECR_REPO --image-id imageTag=$IMAGE_TAG | jq '.imageScanFindings.findingSeverityCounts')
+SCAN_FINDINGS=$(aws ecr describe-image-scan-findings --repository-name $ECR_REPO --image-id imageTag=$IMAGE_TAG | jq '.imageScanFindings.findingSeverityCounts')
 
 CRITICAL=$(echo $SCAN_FINDINGS | jq '.CRITICAL')
 HIGH=$(echo $SCAN_FINDINGS | jq '.HIGH')
