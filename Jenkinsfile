@@ -17,7 +17,7 @@ pipeline {
   {
    agent { label 'demo' }
    steps { 
-    git branch: 'master', url: 'https://gitlab.com/wezvatechprojects/demo.git'
+    git credentialsId: 'GitlabCred', url: 'https://gitlab.com/wezvatechprojects/demo.git''
    }
   }
   
