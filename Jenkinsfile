@@ -17,7 +17,7 @@ pipeline {
   {
    agent { label 'demo' }
    steps { 
-    git branch: 'master', url: 'https://gitlab.com/scmlearningcentre/demo.git'
+    git branch: 'master', url: 'https://gitlab.com/wezvatechprojects/demo.git'
    }
   }
   
