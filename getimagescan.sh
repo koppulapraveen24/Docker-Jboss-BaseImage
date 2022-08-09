@@ -26,7 +26,7 @@ INFORMATIONAL=$(echo $SCAN_FINDINGS | jq '.INFORMATIONAL')
 UNDEFINED=$(echo $SCAN_FINDINGS | jq '.UNDEFINED')
 
 if [ $CRITICAL != null ] || [ $HIGH != null ]; then
- if [ "$HIGH" -gt "15" ]; then
+ if [ "$HIGH" -gt "50" ]; then
    echo "============================================"
    echo "** Docker image contains vulnerabilities ***"
    echo "============================================"
