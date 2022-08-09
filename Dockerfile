@@ -1,3 +1,4 @@
+# Dummy Checkin Aug 9
 # Use latest jboss/base-jdk:11 image as the base
 FROM jboss/base-jdk:11
 
