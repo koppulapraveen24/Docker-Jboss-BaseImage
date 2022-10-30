@@ -7,8 +7,8 @@ pipeline {
   }
 
   parameters {
-     string(name: 'ECRURL', defaultValue: 'https://052807230865.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter your Docker ECR REGISTRY URL?')
-     string(name: 'REPO', defaultValue: 'wezvaecr', description: 'Please Enter your Docker Repo Name?')
+     string(name: 'ECRURL', defaultValue: 'https://437030480074.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter your Docker ECR REGISTRY URL?')
+     string(name: 'REPO', defaultValue: 'wezvabaseimage', description: 'Please Enter your Docker Repo Name?')
      string(name: 'REGION', defaultValue: 'ap-south-1', description: 'Please Enter your AWS Region?')
   }
 
