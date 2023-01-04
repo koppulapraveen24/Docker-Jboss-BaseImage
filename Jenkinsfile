@@ -38,21 +38,11 @@ pipeline {
           }
       }
     }
-  }
-  
-  stage ('Scan Image')
-  {
-    agent { label 'demo' }
-	steps {
-	  withAWS(credentials:'AWSCred') {
-	   sh "./getimagescan.sh ${params.REPO} ${env.BUILD_ID} ${params.REGION}"
-	  }
-	}
-	post {
+    post {
      always {
 	  sh "docker rmi ${params.REPO}:${env.BUILD_ID}"
-	 }
-  }
+	   }
+    }
   }
   
  }
