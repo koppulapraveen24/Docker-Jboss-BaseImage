@@ -25,6 +25,16 @@ LOW=$(echo $SCAN_FINDINGS | jq '.LOW')
 INFORMATIONAL=$(echo $SCAN_FINDINGS | jq '.INFORMATIONAL')
 UNDEFINED=$(echo $SCAN_FINDINGS | jq '.UNDEFINED')
 
+echo "CHECK IF DOCKERFILE HAS LINT ERROR:"
+LINTERR=$(grep error dockerlinter.log|wc -l)
+if [ "$LINTERR" -gt "0"]; then
+   echo "======================================"
+   echo "** Dockerfile contains lint errors ***"
+   echo "======================================"
+   exit 1 
+fi
+
+echo "CHECK IF DOCKER_IMAGE HAS VULNERABILITIES:"
 if [ $CRITICAL != null ] || [ $HIGH != null ]; then
  if [ "$HIGH" -gt "50" ]; then
    echo "============================================"
