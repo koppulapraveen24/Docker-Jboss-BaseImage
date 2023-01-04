@@ -21,6 +21,14 @@ pipeline {
    }
   }
   
+  stage('Run Linter')
+  {
+   agent { label 'demo' }
+   steps { 
+    sh "docker run --rm -i hadolint/hadolint < Dockerfile | tee -a dockerlinter.log"
+   } 
+  }
+  
   stage('Build Image') 
   {
     agent { label 'demo' }
@@ -38,11 +46,21 @@ pipeline {
           }
       }
     }
-    post {
+  }
+  
+  stage ('Scan Image')
+  {
+    agent { label 'demo' }
+	steps {
+	  withAWS(credentials:'AWSCred') {
+	   sh "./getimagescan.sh ${params.REPO} ${env.BUILD_ID} ${params.REGION}"
+	  }
+	}
+	post {
      always {
 	  sh "docker rmi ${params.REPO}:${env.BUILD_ID}"
-	   }
-    }
+	 }
+  }
   }
   
  }
