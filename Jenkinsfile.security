@@ -56,7 +56,7 @@ pipeline {
 	      //Prepare the Tag name for the Image
 	     env.dockerTag = params.REPO + ":" + env.BUILD_ID
 
-       sh "docker run --rm -it \
+       sh "docker run --rm -i \
          -v /var/run/docker.sock:/var/run/docker.sock \
          wagoodman/dive:latest --ci ${dockerTag} --lowestEfficiency=0.8 --highestUserWastedPercent=0.45"
     }
