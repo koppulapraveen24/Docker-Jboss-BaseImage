@@ -63,7 +63,7 @@ pipeline {
    } 
   }
 
-  stage ('Scan Image')
+  stage ('Quality Gates')
   {
     agent { label 'demo' }
 	steps {
